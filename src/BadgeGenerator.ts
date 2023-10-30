@@ -1,0 +1,6 @@
+class BadgeGenerator
+{
+
+}
+
+export { BadgeGenerator };
