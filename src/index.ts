@@ -1,1 +1,3 @@
-console.log('Hello, Badger!');
+import { ArgumentHandler } from './ArgumentHandler';
+
+new ArgumentHandler(process.argv);

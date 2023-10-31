@@ -1,6 +1,0 @@
-class BadgeGenerator
-{
-
-}
-
-export { BadgeGenerator };

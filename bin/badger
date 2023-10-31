@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const { execSync } = require('child_process');
+const path = require('path');
+
+const scriptPath = path.resolve(__dirname, '../dist/badger.js');
+
+execSync(`node ${scriptPath} ${process.argv.slice(2).join(' ')}`, {
+    stdio: 'inherit',
+});

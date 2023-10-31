@@ -1,0 +1,1 @@
+# Badger | JS Badge Generation Package
