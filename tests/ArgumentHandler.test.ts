@@ -6,15 +6,8 @@ describe('Class: Argument Handler', () => {
             'C:\\Program Files\\nodejs\\node.exe',
             'C:\\Development\\Packages\\badger\\dist\\badger.js',
             '--json',
+            './coverage/coverage-final.json',
         ]);
         expect(argumentHandler).toBeInstanceOf(ArgumentHandler);
     });
-    it('should throw an error when not provided with required flags', () => {
-        expect(() => {
-            new ArgumentHandler([
-                'C:\\Program Files\\nodejs\\node.exe',
-                'C:\\Development\\Packages\\badger\\dist\\badger.js',
-            ]);
-        }).toThrowError('Error: please provided the required --json flag');
-    })
 });

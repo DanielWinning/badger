@@ -1,40 +1,63 @@
+import {CommandOption} from "./CommandOption";
+
 class ArgumentHandler
 {
-    private readonly REQUIRED_FLAGS: Array<string> = [
-        'json',
-    ];
-
-    private flags: Array<string>;
+    private commandOptions: Array<CommandOption> = [];
+    private flags: Array<any> = [];
 
     constructor(args: Array<string>)
     {
-        console.log(args);
-        this.parseOptions(args);
-        console.log(args);
+        this.setupCommandOptions();
+        this.parseArguments(args);
     }
 
-    private parseOptions(args: Array<string>): void
+    /**
+     * @returns {void}
+     *
+     * @private
+     */
+    private setupCommandOptions(): void
+    {
+        this.commandOptions.push(new CommandOption('json', true, true));
+    }
+
+    /**
+     * @param {Array<string>} args
+     *
+     * @returns {void}
+     *
+     * @private
+     */
+    private parseArguments(args: Array<string>): void
     {
         args.splice(0, 2);
+
         let errors: Array<string> = [];
 
-        this.flags = args.filter((arg: string) => {
-            return arg.startsWith('--');
-        });
+        this.commandOptions.forEach(commandOption => {
+            let optionValue = args[args.indexOf(`--${commandOption.getName()}`) + 1];
 
-        this.flags = this.flags.map((flag: string) => {
-            return flag.replace('--', '');
-        });
-
-        this.REQUIRED_FLAGS.forEach((requiredFlag: string) => {
-            if (!this.flags.includes(requiredFlag)) {
-                errors.push(`Error: please provided the required --${requiredFlag} flag`);
+            if (commandOption.isOptionRequired()) {
+                if (!args.includes(`--${commandOption.getName()}`)) {
+                    errors.push(`Please provide the ${commandOption.getName()} flag`);
+                }
             }
-        });
 
-        if (errors.length) {
-            throw new Error(errors.join(' | '));
-        }
+            if (commandOption.isOptionValueRequired()) {
+                if (optionValue === undefined || optionValue.startsWith('--')) {
+                    errors.push(`The ${commandOption.getName()} flag requires a value input`);
+                }
+            }
+
+            if (errors.length) {
+                throw new Error(errors.join(', '));
+            }
+
+            this.flags.push({
+                name: commandOption.getName(),
+                value: optionValue,
+            });
+        });
     }
 }
 
