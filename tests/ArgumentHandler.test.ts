@@ -9,5 +9,6 @@ describe('Class: Argument Handler', () => {
             './coverage/coverage-final.json',
         ]);
         expect(argumentHandler).toBeInstanceOf(ArgumentHandler);
+        expect(argumentHandler.getFlags()).toStrictEqual([{name: 'json', value: './coverage/coverage-final.json'}]);
     });
 });

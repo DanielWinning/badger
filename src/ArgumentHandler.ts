@@ -3,7 +3,7 @@ import {CommandOption} from "./CommandOption";
 class ArgumentHandler
 {
     private commandOptions: Array<CommandOption> = [];
-    private flags: Array<any> = [];
+    private flags: Array<object> = [];
 
     constructor(args: Array<string>)
     {
@@ -58,6 +58,11 @@ class ArgumentHandler
                 value: optionValue,
             });
         });
+    }
+
+    public getFlags(): Array<object>
+    {
+        return this.flags;
     }
 }
 
