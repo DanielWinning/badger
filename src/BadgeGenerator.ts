@@ -149,12 +149,19 @@ class BadgeGenerator
                 return;
             }
 
-            const badgeRegex = /<!-- Coverage Badge -->\n(<img[^>]*>)/;
+            const badgeRegex = /<!-- Coverage Badge -->\s*<img [^>]*>/;
+
             if (badgeRegex.test(data)) {
-                const updatedReadme = data.replace(badgeRegex, `<!-- Coverage Badge -->\n${badgeHTML}`);
+                const updatedReadme = data.replace(
+                    badgeRegex,
+                    `<!-- Coverage Badge -->\n${badgeHTML}`
+                );
                 this.updateReadmeFile(readmePath, updatedReadme);
             } else {
-                const updatedReadme = data.replace(/(<!-- Coverage Badge -->)/, `$1\n${badgeHTML}`);
+                const updatedReadme = data.replace(
+                    '<!-- Coverage Badge -->',
+                    `<!-- Coverage Badge -->\n${badgeHTML}`
+                );
                 this.updateReadmeFile(readmePath, updatedReadme);
             }
         });

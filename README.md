@@ -26,10 +26,3 @@ npx badger --json /path/to/coverage-final.json --jest
 ```
 
 This will generate a new badge automatically inside your README file.
-
-#### Issues
-
-This is a very basic package with a single use case at present.
-
-It is worth deleting the generated image tag prior to running the command so that more than one is 
-not generated 🤷

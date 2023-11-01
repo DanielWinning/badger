@@ -1,3 +1,0 @@
-# Test README
-
-<!-- Coverage Badge -->
