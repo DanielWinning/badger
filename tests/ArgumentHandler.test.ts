@@ -65,7 +65,7 @@ describe('Class: Argument Handler', () => {
                 'C:\\Development\\Packages\\badger\\dist\\badger.js',
                 '--json',
             ]);
-        }).toThrowError();
+        }).toThrowError(Messages.ERROR_MISSING_ARGUMENT_VALUE.replace('%s', 'json'));
     });
 
     it('should throw an error when missing a required flag', () => {

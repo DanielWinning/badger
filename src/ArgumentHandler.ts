@@ -41,7 +41,7 @@ class ArgumentHandler
 
                         continue;
                     } else {
-                        throw new Error(`Flag --${flag} requires a value.`);
+                        throw new Error(Messages.ERROR_MISSING_ARGUMENT_VALUE.replace('%s', flag));
                     }
                 }
 
