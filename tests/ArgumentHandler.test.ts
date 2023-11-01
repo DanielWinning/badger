@@ -1,5 +1,6 @@
 import { ArgumentHandler } from '../src/ArgumentHandler';
-import {CommandOption} from "../src/CommandOption";
+import { CommandOption } from '../src/CommandOption';
+import { Messages } from '../src/Enum/Messages';
 
 describe('Class: Argument Handler', () => {
     it('should create an instance of Argument Handler', () => {
@@ -74,6 +75,6 @@ describe('Class: Argument Handler', () => {
                 'C:\\Development\\Packages\\badger\\dist\\badger.js',
                 '--jest',
             ]);
-        }).toThrowError();
+        }).toThrowError(Messages.ERROR_MISSING_REQUIRED_FLAG.replace('%s', 'json'));
     });
 });

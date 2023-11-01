@@ -32,16 +32,12 @@ class ArgumentHandler
                 const commandOption = this.commandOptions.find((commandOption: CommandOption) => commandOption.getName() === flag);
 
                 if (!commandOption) {
-                    throw new Error(`Unknown flag: --${flag}`);
+                    throw new Error(Messages.ERROR_UNKNOWN_FLAG.replace('%s', flag));
                 }
 
                 if (commandOption.requiresValue()) {
                     if ((i + 1) < args.length && !args[i + 1].startsWith('--')) {
-                        this.flags.push({
-                            name: flag,
-                            value: args[i + 1],
-                            commandOption: commandOption
-                        });
+                        this.addFlag(flag, args[i + 1], commandOption);
 
                         continue;
                     } else {
@@ -49,11 +45,7 @@ class ArgumentHandler
                     }
                 }
 
-                this.flags.push({
-                    name: flag,
-                    value: null,
-                    commandOption: commandOption
-                });
+                this.addFlag(flag, null, commandOption);
 
                 this.commandOptions.forEach((option: CommandOption) => {
                     if (option.isOptionRequired() && !this.flags.find((flag: IFlag) => flag.name === option.getName())) {
@@ -62,6 +54,22 @@ class ArgumentHandler
                 });
             }
         }
+    }
+
+    /**
+     * @param {string} name
+     * @param {string|null} value
+     * @param {CommandOption} commandOption
+     *
+     * @private
+     */
+    private addFlag(name: string, value: string|null, commandOption: CommandOption): void
+    {
+        this.flags.push({
+            name: name,
+            value: value,
+            commandOption: commandOption
+        });
     }
 
     public getFlags(): Array<object>
