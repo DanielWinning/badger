@@ -1,8 +1,11 @@
 {
   "name": "badger",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Badge generator for README files.",
+  "main": "dist/badger.js",
+  "bin": {
+    "badger": "dist/badger.js"
+  },
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
     "watch": "webpack --config webpack.config.js --mode=development --watch",
