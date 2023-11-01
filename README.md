@@ -6,7 +6,7 @@
 ### Installation
 
 ```shell
-npm install @dannyxcii/badger
+npm install --save-dev @dannyxcii/badger
 ```
 
 ### How to use
