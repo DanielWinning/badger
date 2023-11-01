@@ -1,7 +1,7 @@
 # Badger | JS Badge Generation Package
 
 <!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-75.00%25-red.svg" alt="Coverage 75.00%">
+<img src="https://img.shields.io/badge/Coverage-85.10%25-yellow.svg" alt="Coverage 85.10%">
 
 ### Installation
 

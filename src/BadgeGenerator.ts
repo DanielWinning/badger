@@ -5,7 +5,7 @@ class BadgeGenerator
 {
     private flags: Array<IFlag>;
     private readonly configPath?: string;
-    private data: Record<string, any>;
+    private readonly data: Record<string, any>;
 
     constructor(flags: Array<IFlag>)
     {
@@ -21,6 +21,14 @@ class BadgeGenerator
         this.data = this.getJsonDataFromFilepath(this.configPath);
 
         this.run();
+    }
+
+    /**
+     * @returns {Record<string, any>}
+     */
+    public getData(): Record<string, any>
+    {
+        return this.data;
     }
 
     private run(): void
