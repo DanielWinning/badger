@@ -1,3 +1,5 @@
 import { ArgumentHandler } from './ArgumentHandler';
 
-new ArgumentHandler(process.argv);
+let argumentHandler = new ArgumentHandler(process.argv);
+
+console.log(argumentHandler.getFlags());

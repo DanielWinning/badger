@@ -29,7 +29,7 @@ class CommandOption
     /**
      * @returns {boolean}
      */
-    public isOptionValueRequired(): boolean
+    public requiresValue(): boolean
     {
         return this.valueRequired;
     }
