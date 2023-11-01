@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
     "watch": "webpack --config webpack.config.js --mode=development --watch",
-    "test": "jest --verbose"
+    "test": "jest --verbose && node ./bin/badger --json ./coverage/coverage-final.json --jest"
   },
   "keywords": [],
   "author": "",

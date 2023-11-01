@@ -1,6 +1,6 @@
 import { CommandOption } from './CommandOption';
 import { Messages } from './Enum/Messages';
-import {IFlag} from "./Interface/IFlag";
+import { IFlag } from './Interface/IFlag';
 
 class ArgumentHandler
 {
@@ -26,6 +26,8 @@ class ArgumentHandler
 
     private parseArguments(args: Array<string>): void
     {
+        args.splice(0, 2);
+
         for (let i = 0; i < args.length; i++) {
             if (args[i].startsWith('--')) {
                 const flag = args[i].slice(2);
@@ -72,7 +74,7 @@ class ArgumentHandler
         });
     }
 
-    public getFlags(): Array<object>
+    public getFlags(): Array<IFlag>
     {
         return this.flags;
     }

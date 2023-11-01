@@ -1,5 +1,6 @@
 import { ArgumentHandler } from './ArgumentHandler';
+import {BadgeGenerator} from "./BadgeGenerator";
 
 let argumentHandler = new ArgumentHandler(process.argv);
 
-console.log(argumentHandler.getFlags());
+new BadgeGenerator(argumentHandler.getFlags());
