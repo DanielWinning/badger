@@ -1,10 +1,10 @@
 {
   "name": "@dannyxcii/badger",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Badge generator for README files.",
   "main": "dist/badger.js",
   "bin": {
-    "badger": "dist/badger.js"
+    "badger": "dist/badger"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
