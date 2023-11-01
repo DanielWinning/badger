@@ -55,7 +55,7 @@ describe('Class: Argument Handler', () => {
                 './coverage/coverage-final.json',
                 '--invalidFlag',
             ]);
-        }).toThrowError();
+        }).toThrowError(Messages.ERROR_UNKNOWN_FLAG.replace('%s', 'invalidFlag'));
     });
 
     it('should throw an error when a flag is passed with no value when value is required', () => {
