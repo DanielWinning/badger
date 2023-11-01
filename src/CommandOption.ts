@@ -1,13 +1,22 @@
+import {BadgeGenerator} from "./BadgeGenerator";
+
 class CommandOption
 {
     private readonly name: string;
     private readonly valueRequired: boolean = false;
     private readonly isRequired: boolean = false;
+    private badgeGenerator: BadgeGenerator;
 
-    constructor(name: string, isRequired: boolean = false, valueRequired: boolean = false) {
+    constructor(name: string, badgeGenerator: BadgeGenerator, isRequired: boolean = false, valueRequired: boolean = false) {
         this.name = name;
+        this.badgeGenerator = badgeGenerator;
         this.isRequired = isRequired;
         this.valueRequired = valueRequired;
+    }
+
+    public runGenerator(arg?: string): void
+    {
+        this.badgeGenerator.generate(this, arg);
     }
 
     /**

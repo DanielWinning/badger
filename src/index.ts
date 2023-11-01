@@ -1,6 +1,8 @@
 import { ArgumentHandler } from './ArgumentHandler';
-import {BadgeGenerator} from "./BadgeGenerator";
+import { IFlag } from './Interface/IFlag';
 
 let argumentHandler = new ArgumentHandler(process.argv);
 
-new BadgeGenerator(argumentHandler.getFlags());
+argumentHandler.getFlags().forEach((flag: IFlag) => {
+    flag.commandOption.runGenerator(flag.value);
+})

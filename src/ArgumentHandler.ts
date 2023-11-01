@@ -1,6 +1,7 @@
 import { CommandOption } from './CommandOption';
 import { Messages } from './Enum/Messages';
 import { IFlag } from './Interface/IFlag';
+import {JestCoverageGenerator} from "./Generators/JestCoverageGenerator";
 
 class ArgumentHandler
 {
@@ -20,10 +21,14 @@ class ArgumentHandler
      */
     private setupCommandOptions(): void
     {
-        this.commandOptions.push(new CommandOption('json', true, true));
-        this.commandOptions.push(new CommandOption('jest', false, false));
+        this.commandOptions.push(new CommandOption('jest', new JestCoverageGenerator(), false, true));
     }
 
+    /**
+     * @param {Array<string>} args
+     *
+     * @private
+     */
     private parseArguments(args: Array<string>): void
     {
         args.splice(0, 2);
@@ -74,6 +79,9 @@ class ArgumentHandler
         });
     }
 
+    /**
+     * @returns {Array<IFlag>}
+     */
     public getFlags(): Array<IFlag>
     {
         return this.flags;

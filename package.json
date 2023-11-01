@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
     "watch": "webpack --config webpack.config.js --mode=development --watch",
-    "test": "jest --verbose && node ./bin/badger --json ./coverage/coverage-final.json --jest"
+    "test": "jest --verbose && node ./bin/badger --jest ./coverage/coverage-final.json"
   },
   "keywords": [],
   "author": "",

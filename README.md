@@ -1,7 +1,7 @@
 # Badger | JS Badge Generation Package
 
 <!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-85.10%25-yellow.svg" alt="Coverage 85.10%">
+<img src="https://img.shields.io/badge/Coverage-62.13%25-red.svg" alt="Coverage 62.13%">
 
 ### Installation
 
@@ -22,7 +22,7 @@ In your README file insert the following comment:
 Run the command (it might be a good idea to chain this along with your test command):
 
 ```shell
-npx badger --json /path/to/coverage-final.json --jest
+npx badger --jest /path/to/coverage-final.json
 ```
 
 This will generate a new badge automatically inside your README file.
