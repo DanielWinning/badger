@@ -1,5 +1,5 @@
 {
-  "name": "badger",
+  "name": "@dannyxcii/badger",
   "version": "0.1.0",
   "description": "Badge generator for README files.",
   "main": "dist/badger.js",
