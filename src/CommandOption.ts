@@ -5,7 +5,7 @@ class CommandOption
     private readonly name: string;
     private readonly valueRequired: boolean = false;
     private readonly isRequired: boolean = false;
-    private badgeGenerator?: BadgeGenerator;
+    private readonly badgeGenerator?: BadgeGenerator;
 
     constructor(name: string, badgeGenerator: BadgeGenerator = null, isRequired: boolean = false, valueRequired: boolean = false) {
         this.name = name;

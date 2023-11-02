@@ -90,7 +90,7 @@ abstract class BadgeGenerator implements IBadgeGenerator
      */
     protected updateReadmeWithBadge(badgeHTML: string): void
     {
-        const readmePath = ArgumentHandler.argumentHandler.readmePath !== undefined
+        const readmePath = ArgumentHandler.argumentHandler?.readmePath !== undefined
             ? ArgumentHandler.argumentHandler.readmePath
             : './README.md';
 
