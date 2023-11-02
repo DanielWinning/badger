@@ -1,10 +1,13 @@
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
-import * as fs from 'fs';
 
 class JestCoverageGenerator extends BadgeGenerator
 {
-    public generate(commandOption: CommandOption, arg?: string)
+    /**
+     * @param {CommandOption} commandOption
+     * @param {string?} arg
+     */
+    public generate(commandOption: CommandOption, arg?: string): void
     {
         this.setupData('Coverage', commandOption, true, arg);
 
@@ -16,6 +19,11 @@ class JestCoverageGenerator extends BadgeGenerator
         this.updateReadmeWithBadge(badge);
     }
 
+    /**
+     * @returns {Array<string>}
+     *
+     * @private
+     */
     private getFileCoveragePercentages(): Array<string>
     {
         let coveragePercentages: Array<string> = [];
@@ -32,6 +40,9 @@ class JestCoverageGenerator extends BadgeGenerator
 
     /**
      * @param {Record<string, any>} data
+     *
+     * @returns {string}
+     *
      * @private
      */
     private calculateCoverageMetric(data: Record<string, any>): string
@@ -42,6 +53,13 @@ class JestCoverageGenerator extends BadgeGenerator
         return ((covered / total) * 100).toFixed(2);
     }
 
+    /**
+     * @param {Array<string>} coveragePercentages
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     private getTotalCoverage(coveragePercentages: Array<string>): string
     {
         let count = coveragePercentages.length,
@@ -52,6 +70,13 @@ class JestCoverageGenerator extends BadgeGenerator
         return (Number(sum) / count).toFixed(2);
     }
 
+    /**
+     * @param {string} totalPercentage
+     *
+     * @returns {string}
+     *
+     * @private
+     */
     private getCoverageStatus(totalPercentage: string): string
     {
         const coverage = parseFloat(totalPercentage);

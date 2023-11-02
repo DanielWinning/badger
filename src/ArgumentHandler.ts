@@ -1,17 +1,33 @@
 import { CommandOption } from './CommandOption';
-import { Messages } from './Enum/Messages';
 import { IFlag } from './Interface/IFlag';
-import {JestCoverageGenerator} from "./Generators/JestCoverageGenerator";
+import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
+import { Messages } from './Enum/Messages';
 
 class ArgumentHandler
 {
     private commandOptions: Array<CommandOption> = [];
     private flags: Array<IFlag> = [];
+    public readmePath?: string;
+    public static argumentHandler: ArgumentHandler;
 
     constructor(args: Array<string>)
     {
         this.setupCommandOptions();
         this.parseArguments(args);
+
+        if (ArgumentHandler.argumentHandler !== undefined) {
+            throw new Error('Only a single instance of ArgumentHandler is expected.');
+        }
+
+        let readmeCommand = this.flags.find((flag: IFlag) => {
+            return flag.commandOption.getName() === 'readme';
+        });
+
+        if (readmeCommand !== undefined) {
+            this.readmePath = readmeCommand.value;
+        }
+
+        ArgumentHandler.argumentHandler = this;
     }
 
     /**
@@ -21,7 +37,12 @@ class ArgumentHandler
      */
     private setupCommandOptions(): void
     {
-        this.commandOptions.push(new CommandOption('jest', new JestCoverageGenerator(), false, true));
+        this.commandOptions.push(
+            new CommandOption('jest', new JestCoverageGenerator(), false, true)
+        );
+        this.commandOptions.push(
+            new CommandOption('readme', null, false, true)
+        );
     }
 
     /**
@@ -36,7 +57,9 @@ class ArgumentHandler
         for (let i = 0; i < args.length; i++) {
             if (args[i].startsWith('--')) {
                 const flag = args[i].slice(2);
-                const commandOption = this.commandOptions.find((commandOption: CommandOption) => commandOption.getName() === flag);
+                const commandOption = this.commandOptions.find((commandOption: CommandOption) => {
+                    return commandOption.getName() === flag;
+                });
 
                 if (!commandOption) {
                     throw new Error(Messages.ERROR_UNKNOWN_FLAG.replace('%s', flag));

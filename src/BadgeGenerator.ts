@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { CommandOption } from './CommandOption';
 import { IBadgeGenerator } from './Interface/IBadgeGenerator';
+import {ArgumentHandler} from "./ArgumentHandler";
 
 abstract class BadgeGenerator implements IBadgeGenerator
 {
@@ -62,7 +63,8 @@ abstract class BadgeGenerator implements IBadgeGenerator
     protected generateHTMLBadge(value: string, color: string): string
     {
         let badgeURL = this.generateBadgeURL(value, color);
-        return `<img src="${badgeURL}" alt="${this.name} ${value}%">`;
+
+        return `<img src="${badgeURL}" alt="${this.name} ${value}${this.isPercentage ? '%' : ''}">`;
     }
 
     /**
@@ -88,12 +90,13 @@ abstract class BadgeGenerator implements IBadgeGenerator
      */
     protected updateReadmeWithBadge(badgeHTML: string): void
     {
-        const readmePath = './README.md';
+        const readmePath = ArgumentHandler.argumentHandler.readmePath !== undefined
+            ? ArgumentHandler.argumentHandler.readmePath
+            : './README.md';
 
         fs.readFile(readmePath, 'utf8', (err, data) => {
             if (err) {
-                console.error(`Error reading file ${err}`);
-                return;
+                throw new Error(`Error reading file ${err}`);
             }
 
             const badgeRegex = new RegExp(`<!-- ${this.name} Badge -->\\s*<img [^>]*>`);
@@ -112,6 +115,8 @@ abstract class BadgeGenerator implements IBadgeGenerator
                 this.updateReadmeFile(readmePath, updatedReadme);
             }
         });
+
+        console.log(`${this.name} Badge added to README.`);
     }
 
     /**
@@ -126,9 +131,7 @@ abstract class BadgeGenerator implements IBadgeGenerator
     {
         fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => {
             if (err) {
-                console.error(`Error writing to README file: ${err}`);
-            } else {
-                console.log(`${this.name} Badge added to README`);
+                throw new Error(`Error writing to README file: ${err}`);
             }
         });
     }

@@ -1,8 +1,10 @@
 import { ArgumentHandler } from './ArgumentHandler';
 import { IFlag } from './Interface/IFlag';
 
-let argumentHandler = new ArgumentHandler(process.argv);
+new ArgumentHandler(process.argv);
 
-argumentHandler.getFlags().forEach((flag: IFlag) => {
-    flag.commandOption.runGenerator(flag.value);
-})
+ArgumentHandler.argumentHandler.getFlags().forEach((flag: IFlag) => {
+    if (flag.commandOption.hasGenerator()) {
+        flag.commandOption.runGenerator(flag.value);
+    }
+});
