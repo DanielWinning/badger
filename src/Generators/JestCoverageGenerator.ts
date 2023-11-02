@@ -6,7 +6,7 @@ class JestCoverageGenerator extends BadgeGenerator
 {
     public generate(commandOption: CommandOption, arg?: string)
     {
-        super.generate(commandOption, arg);
+        this.setupData('Coverage', commandOption, true, arg);
 
         const filePercentages: Array<string> = this.getFileCoveragePercentages();
         const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
@@ -63,64 +63,6 @@ class JestCoverageGenerator extends BadgeGenerator
         } else {
             return 'red';
         }
-    }
-
-    private generateHTMLBadge(totalCoverage: string, coverageStatus: string): string
-    {
-        let badgeURL = this.generateBadgeURL(totalCoverage, coverageStatus);
-        return `<img src="${badgeURL}" alt="Coverage ${totalCoverage}%">`;
-    }
-
-    private generateBadgeURL(totalCoverage: string, coverageStatus: string): string
-    {
-        return `https://img.shields.io/badge/Coverage-${totalCoverage}%25-${coverageStatus}.svg`;
-    }
-
-    private updateReadmeWithBadge(badgeHTML: string)
-    {
-        const readmePath = './README.md';
-
-        fs.readFile(readmePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error(`Error reading file ${err}`);
-                return;
-            }
-
-            const badgeRegex = /<!-- Coverage Badge -->\s*<img [^>]*>/;
-
-            if (badgeRegex.test(data)) {
-                const updatedReadme = data.replace(
-                    badgeRegex,
-                    `<!-- Coverage Badge -->\n${badgeHTML}`
-                );
-                this.updateReadmeFile(readmePath, updatedReadme);
-            } else {
-                const updatedReadme = data.replace(
-                    '<!-- Coverage Badge -->',
-                    `<!-- Coverage Badge -->\n${badgeHTML}`
-                );
-                this.updateReadmeFile(readmePath, updatedReadme);
-            }
-        });
-    }
-
-    /**
-     * @param {string} readmePath
-     * @param {string} updatedReadme
-     *
-     * @returns {void}
-     *
-     * @private
-     */
-    private updateReadmeFile(readmePath: string, updatedReadme: string): void
-    {
-        fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => {
-            if (err) {
-                console.error(`Error writing to README file: ${err}`);
-            } else {
-                console.log('Badge added to README');
-            }
-        });
     }
 }
 
