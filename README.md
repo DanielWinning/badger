@@ -4,7 +4,7 @@
 <!-- Version Badge -->
 <img src="https://img.shields.io/badge/Version-0.2.6-blue" alt="Version 0.2.6">
 <!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-77.83%25-red" alt="Coverage 77.83%">
+<img src="https://img.shields.io/badge/Coverage-77.66%25-red" alt="Coverage 77.66%">
 </div>
 
 ## Installation

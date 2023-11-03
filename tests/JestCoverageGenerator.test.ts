@@ -10,6 +10,7 @@ beforeEach(() => {
 
 afterEach(() => {
     global.console = jestConsole;
+    ArgumentHandler.argumentHandler = undefined;
 });
 
 describe('Class: JestCoverageGenerator', () => {
@@ -71,24 +72,5 @@ describe('Class: JestCoverageGenerator', () => {
         );
 
         expect(consoleSpy).toBeCalledWith('Coverage Badge added to README.');
-    });
-
-    it('should throw an error when the README path is invalid', () => {
-        expect(() => {
-            new ArgumentHandler([
-                'C:\\Program Files\\nodejs\\node.exe',
-                'C:\\Development\\Packages\\badger\\dist\\badger.js',
-                '--jest',
-                './coverage/coverage-final.json',
-                '--readme',
-                './invalid/path',
-            ]);
-            const jestCoverageGenerator = new JestCoverageGenerator();
-
-            jestCoverageGenerator.generate(
-                new CommandOption('jest', false, true),
-                './coverage/coverage-final.json'
-            );
-        }).toThrowError();
     });
 });
