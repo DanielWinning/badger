@@ -8,6 +8,10 @@ const jestCommand = new CommandOption(
     true
 );
 
+afterEach(() => {
+    ArgumentHandler.argumentHandler = undefined;
+});
+
 describe('Class: Argument Handler', () => {
     it('should create an instance of Argument Handler', () => {
         const argumentHandler = new ArgumentHandler([
@@ -46,5 +50,38 @@ describe('Class: Argument Handler', () => {
                 '--jest',
             ]);
         }).toThrowError(Messages.ERROR_MISSING_ARGUMENT_VALUE.replace('%s', 'jest'));
+    });
+
+    it('should throw an error when called without required arguments', () => {
+       expect(() => {
+           new ArgumentHandler(
+               [
+                   'C:\\Program Files\\nodejs\\node.exe',
+                   'C:\\Development\\Packages\\badger\\dist\\badger.js',
+                   '--jest',
+                   './coverage/coverage-final.json',
+               ],
+               [
+                   new CommandOption('test', true, false),
+               ]
+           );
+       }).toThrowError(Messages.ERROR_MISSING_REQUIRED_FLAG.replace('%s', 'test'));
+    });
+
+    it('should add create an instance of ArgumentHandler when provided flags with no required value', () => {
+        const argumentHandler = new ArgumentHandler(
+            [
+                'C:\\Program Files\\nodejs\\node.exe',
+                'C:\\Development\\Packages\\badger\\dist\\badger.js',
+                '--jest',
+                './coverage/coverage-final.json',
+                '--test',
+            ],
+            [
+                new CommandOption('test', false, false),
+            ]
+        );
+
+        expect(argumentHandler).toBeInstanceOf(ArgumentHandler);
     });
 });

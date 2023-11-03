@@ -9,14 +9,20 @@ class ArgumentHandler
     public readmePath?: string;
     public static argumentHandler: ArgumentHandler;
 
-    constructor(args: Array<string>)
+    constructor(args: Array<string>, additionalCommandOptions?: Array<CommandOption>)
     {
-        this.setupCommandOptions();
-        this.parseArguments(args);
-
         if (ArgumentHandler.argumentHandler !== undefined) {
             throw new Error('Only a single instance of ArgumentHandler is expected.');
         }
+
+        if (additionalCommandOptions) {
+            additionalCommandOptions.forEach((commandOption: CommandOption) => {
+                this.commandOptions.push(commandOption);
+            });
+        }
+
+        this.setupCommandOptions();
+        this.parseArguments(args);
 
         let readmeCommand = this.flags.find((flag: IFlag) => {
             return flag.commandOption.getName() === 'readme';
@@ -78,14 +84,14 @@ class ArgumentHandler
                 }
 
                 this.addFlag(flag, null, commandOption);
-
-                this.commandOptions.forEach((option: CommandOption) => {
-                    if (option.isOptionRequired() && !this.flags.find((flag: IFlag) => flag.name === option.getName())) {
-                        throw new Error(Messages.ERROR_MISSING_REQUIRED_FLAG.replace('%s', option.getName()));
-                    }
-                });
             }
         }
+
+        this.commandOptions.forEach((option: CommandOption) => {
+            if (option.isOptionRequired() && !this.flags.find((flag: IFlag) => flag.name === option.getName())) {
+                throw new Error(Messages.ERROR_MISSING_REQUIRED_FLAG.replace('%s', option.getName()));
+            }
+        });
     }
 
     /**

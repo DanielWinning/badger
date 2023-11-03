@@ -1,5 +1,4 @@
 import { CommandOption } from '../src/CommandOption';
-import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
 
 const jestConsole = console;
 

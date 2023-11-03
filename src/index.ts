@@ -1,16 +1,10 @@
 import { ArgumentHandler } from './ArgumentHandler';
 import { IFlag } from './Interface/IFlag';
-import {CommandOption} from "./CommandOption";
-import {JestCoverageGenerator} from "./Generators/JestCoverageGenerator";
-import {VersionGenerator} from "./Generators/VersionGenerator";
+import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
+import { VersionGenerator } from './Generators/VersionGenerator';
 
 new ArgumentHandler(process.argv);
 
-const commandOptions: Array<CommandOption> = [
-    new CommandOption('jest', false, true),
-    new CommandOption('readme', false, true),
-    new CommandOption('version', false, true),
-];
 const badgeGenerators = {
     jest: new JestCoverageGenerator(),
     version: new VersionGenerator(),
