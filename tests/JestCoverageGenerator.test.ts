@@ -1,9 +1,9 @@
 import { ArgumentHandler } from '../src/ArgumentHandler';
 import { CommandOption } from '../src/CommandOption';
 import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
+import { Messages } from '../src/Enum/Messages';
 
 const jestConsole = console;
-const consoleSpy = jest.spyOn(console, 'log');
 
 beforeEach(() => {
     global.console = require('console');
@@ -36,7 +36,9 @@ describe('Class: JestCoverageGenerator', () => {
         expect(jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
             './invalid/path'
-        )).rejects.toBeInstanceOf(Error);
+        )).rejects.toStrictEqual(
+            new Error(Messages.ERROR_READING_FROM_FILEPATH.replace('%s', './invalid/path'))
+        );
     });
 
     it('should throw an error when called without filepath', () => {
@@ -44,7 +46,7 @@ describe('Class: JestCoverageGenerator', () => {
 
         expect(jestCoverageGenerator.generate(
             new CommandOption('jest', false, true)
-        )).rejects.toStrictEqual('Error reading the specified filepath');
+        )).rejects.toStrictEqual(Messages.ERROR_MISSING_ARGUMENT_VALUE.replace('%s', 'jest'));
     });
 
     it('should update README when using custom path', async () => {

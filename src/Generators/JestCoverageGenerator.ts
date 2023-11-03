@@ -1,5 +1,6 @@
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
+import {Messages} from "../Enum/Messages";
 
 class JestCoverageGenerator extends BadgeGenerator
 {
@@ -17,22 +18,22 @@ class JestCoverageGenerator extends BadgeGenerator
     public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            if (this.setupData(this.getName(), commandOption, true, arg)) {
-                const filePercentages: Array<string> = this.getFileCoveragePercentages();
-                const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
-                const coverageStatus: string = this.getCoverageStatus(totalCoveragePercentage);
-                const badge: string = this.generateHTMLBadge(totalCoveragePercentage, coverageStatus);
+            this.setupData(this.getName(), commandOption, true, arg)
+                .then(() => {
+                    const filePercentages: Array<string> = this.getFileCoveragePercentages();
+                    const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
+                    const coverageStatus: string = this.getCoverageStatus(totalCoveragePercentage);
+                    const badge: string = this.generateHTMLBadge(totalCoveragePercentage, coverageStatus);
 
-                this.updateReadmeWithBadge(badge)
-                    .then(data => {
-                        resolve(data);
-                    })
-                    .catch(() => {
-                        reject('Error reading README file.');
-                    });
-            } else {
-                reject('Error reading the specified filepath');
-            }
+                    this.updateReadmeWithBadge(badge)
+                        .then(data => {
+                            resolve(data);
+                        })
+                        .catch(() => {
+                            reject(Messages.ERROR_READING_README);
+                        });
+                })
+                .catch(err => reject(err));
         });
     }
 

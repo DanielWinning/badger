@@ -1,5 +1,6 @@
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
+import {Messages} from "../Enum/Messages";
 
 class VersionGenerator extends BadgeGenerator
 {
@@ -20,7 +21,7 @@ class VersionGenerator extends BadgeGenerator
                 ).then(data => {
                     resolve(data);
                 }).catch(() => {
-                    reject('Error reading README file.');
+                    reject(Messages.ERROR_READING_README);
                 });
             }
         });

@@ -17,9 +17,10 @@ ArgumentHandler.argumentHandler.getFlags().forEach(async (flag: IFlag) => {
         return;
     }
 
-    await generator.generate(flag.commandOption, flag.value).then(response => {
-        console.log(response);
-    }).catch((error) => {
-        console.error(error);
-    });
+    await generator.generate(flag.commandOption, flag.value)
+        .then(response => {
+            console.log(response);
+        }).catch((error) => {
+            console.error(error);
+        });
 });

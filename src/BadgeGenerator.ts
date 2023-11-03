@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import { CommandOption } from './CommandOption';
 import { IBadgeGenerator } from './Interface/IBadgeGenerator';
 import { ArgumentHandler } from './ArgumentHandler';
+import {Problem} from "webpack-cli";
+import {Messages} from "./Enum/Messages";
 
 abstract class BadgeGenerator implements IBadgeGenerator
 {
@@ -21,20 +23,22 @@ abstract class BadgeGenerator implements IBadgeGenerator
      *
      * @private
      */
-    protected setupData(name: string, commandOption: CommandOption, isPercentage: boolean = false, arg?: string): boolean
+    protected async setupData(name: string, commandOption: CommandOption, isPercentage: boolean = false, arg?: string): Promise<any>
     {
-        this.commandOption = commandOption;
+        return new Promise((resolve, reject) => {
+            this.commandOption = commandOption;
 
-        if (this.commandOption.requiresValue() && !arg) {
-            return false;
-        }
+            if (this.commandOption.requiresValue() && !arg) {
+                reject(Messages.ERROR_MISSING_ARGUMENT_VALUE.replace('%s', this.commandOption.getName()));
+            }
 
-        this.configPath = arg;
-        this.data = this.getJsonDataFromFilepath(this.configPath);
-        this.name = name;
-        this.isPercentage = isPercentage;
+            this.configPath = arg;
+            this.data = this.getJsonDataFromFilepath(this.configPath);
+            this.name = name;
+            this.isPercentage = isPercentage;
 
-        return true;
+            resolve(true);
+        });
     }
 
     /**
@@ -88,7 +92,7 @@ abstract class BadgeGenerator implements IBadgeGenerator
         try {
             return JSON.parse(fs.readFileSync(filepath, 'utf-8'));
         } catch (error) {
-            throw new Error('Error reading the config file.');
+            throw new Error(Messages.ERROR_READING_FROM_FILEPATH.replace('%s', filepath));
         }
     }
 
