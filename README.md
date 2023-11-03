@@ -1,9 +1,11 @@
 # Badger | JS Badge Generation Package
 
+<div>
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-0.2.2-blue" alt="Version 0.2.2">
+<img src="https://img.shields.io/badge/Version-0.2.3-blue" alt="Version 0.2.3">
 <!-- Coverage Badge -->
 <img src="https://img.shields.io/badge/Coverage-75.23%25-red" alt="Coverage 75.23%">
+</div>
 
 ## Installation
 
