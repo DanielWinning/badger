@@ -1,6 +1,12 @@
 const { execSync } = require('child_process');
 const args = process.argv;
 const tag = args[2];
+let commitMessage = null;
+
+if (args.length > 3) {
+    commitMessage = args[3];
+}
+
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
@@ -13,7 +19,7 @@ const commands = [
     'node ./bin/badger --version ./package.json',
     `git tag -a ${tag} -m "Release ${tag}"`,
     `git add .`,
-    `git commit -m "Release ${tag}"`,
+    `git commit -m "Release ${tag}${commitMessage ? ' - ' + commitMessage : ''}"`,
     'git push',
     `git push origin ${tag}`,
     'npm publish',
