@@ -11,17 +11,29 @@ class JestCoverageGenerator extends BadgeGenerator
     /**
      * @param {CommandOption} commandOption
      * @param {string?} arg
+     *
+     * @returns {Promise<any>}
      */
-    public generate(commandOption: CommandOption, arg?: string): void
+    public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
-        this.setupData(this.getName(), commandOption, true, arg);
+        return new Promise((resolve, reject) => {
+            if (this.setupData(this.getName(), commandOption, true, arg)) {
+                const filePercentages: Array<string> = this.getFileCoveragePercentages();
+                const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
+                const coverageStatus: string = this.getCoverageStatus(totalCoveragePercentage);
+                const badge: string = this.generateHTMLBadge(totalCoveragePercentage, coverageStatus);
 
-        const filePercentages: Array<string> = this.getFileCoveragePercentages();
-        const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
-        const coverageStatus: string = this.getCoverageStatus(totalCoveragePercentage);
-        const badge: string = this.generateHTMLBadge(totalCoveragePercentage, coverageStatus);
-
-        this.updateReadmeWithBadge(badge);
+                this.updateReadmeWithBadge(badge)
+                    .then(data => {
+                        resolve(data);
+                    })
+                    .catch(() => {
+                        reject('Error reading README file.');
+                    });
+            } else {
+                reject('Error reading the specified filepath');
+            }
+        });
     }
 
     /**

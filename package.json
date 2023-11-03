@@ -1,6 +1,6 @@
 {
   "name": "@dannyxcii/badger",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Badge generator for README files.",
   "main": "dist/badger.js",
   "bin": {
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode=production",
     "watch": "webpack --config webpack.config.js --mode=development --watch",
-    "test": "jest --verbose && node ./bin/badger --jest ./coverage/coverage-final.json",
+    "test": "jest --verbose --silent && node ./bin/badger --jest ./coverage/coverage-final.json",
     "publisher": "node ./devtools/publish.js"
   },
   "keywords": [],

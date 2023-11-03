@@ -17,20 +17,24 @@ abstract class BadgeGenerator implements IBadgeGenerator
      * @param {boolean} isPercentage
      * @param {string?} arg
      *
+     * @returns {boolean}
+     *
      * @private
      */
-    protected setupData(name: string, commandOption: CommandOption, isPercentage: boolean = false, arg?: string): void
+    protected setupData(name: string, commandOption: CommandOption, isPercentage: boolean = false, arg?: string): boolean
     {
         this.commandOption = commandOption;
 
         if (this.commandOption.requiresValue() && !arg) {
-            throw new Error(`The --${this.commandOption.getName()} requires an argument.`);
+            return false;
         }
 
         this.configPath = arg;
         this.data = this.getJsonDataFromFilepath(this.configPath);
         this.name = name;
         this.isPercentage = isPercentage;
+
+        return true;
     }
 
     /**
@@ -93,35 +97,37 @@ abstract class BadgeGenerator implements IBadgeGenerator
      *
      * @protected
      */
-    protected updateReadmeWithBadge(badgeHTML: string): void
+    public async updateReadmeWithBadge(badgeHTML: string): Promise<any>
     {
-        const readmePath = ArgumentHandler.argumentHandler?.readmePath !== undefined
-            ? ArgumentHandler.argumentHandler.readmePath
-            : './README.md';
+        return new Promise((resolve, reject) => {
+            const readmePath = ArgumentHandler.argumentHandler?.readmePath !== undefined
+                ? ArgumentHandler.argumentHandler.readmePath
+                : './README.md';
 
-        fs.readFile(readmePath, 'utf8', (err, data) => {
-            if (err) {
-                throw new Error(`Error reading file ${err}`);
-            }
+            fs.readFile(readmePath, 'utf8', (err, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    const badgeRegex = new RegExp(`<!-- ${this.name} Badge -->\\s*<img [^>]*>`);
 
-            const badgeRegex = new RegExp(`<!-- ${this.name} Badge -->\\s*<img [^>]*>`);
-
-            if (badgeRegex.test(data)) {
-                const updatedReadme = data.replace(
-                    badgeRegex,
-                    `<!-- ${this.name} Badge -->\n${badgeHTML}`
-                );
-                this.updateReadmeFile(readmePath, updatedReadme);
-            } else {
-                const updatedReadme = data.replace(
-                    `<!-- ${this.name} Badge -->`,
-                    `<!-- ${this.name} Badge -->\n${badgeHTML}`
-                );
-                this.updateReadmeFile(readmePath, updatedReadme);
-            }
+                    if (badgeRegex.test(data)) {
+                        const updatedReadme = data.replace(
+                            badgeRegex,
+                            `<!-- ${this.name} Badge -->\n${badgeHTML}`
+                        );
+                        this.updateReadmeFile(readmePath, updatedReadme);
+                        resolve(`${this.name} Badge added to README.`);
+                    } else {
+                        const updatedReadme = data.replace(
+                            `<!-- ${this.name} Badge -->`,
+                            `<!-- ${this.name} Badge -->\n${badgeHTML}`
+                        );
+                        this.updateReadmeFile(readmePath, updatedReadme);
+                        resolve(`${this.name} Badge added to README.`);
+                    }
+                }
+            });
         });
-
-        console.log(`${this.name} Badge added to README.`);
     }
 
     /**

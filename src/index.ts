@@ -10,12 +10,16 @@ const badgeGenerators = {
     version: new VersionGenerator(),
 };
 
-ArgumentHandler.argumentHandler.getFlags().forEach((flag: IFlag) => {
+ArgumentHandler.argumentHandler.getFlags().forEach(async (flag: IFlag) => {
     const generator = badgeGenerators[flag.name as keyof typeof badgeGenerators];
 
     if (!generator) {
         return;
     }
 
-    generator.generate(flag.commandOption, flag.value);
+    await generator.generate(flag.commandOption, flag.value).then(response => {
+        console.log(response);
+    }).catch((error) => {
+        console.error(error);
+    });
 });

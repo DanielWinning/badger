@@ -11,13 +11,19 @@ class VersionGenerator extends BadgeGenerator
         return 'Version';
     }
 
-    generate(commandOption: CommandOption, arg?: string): void
+    public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
-        this.setupData(this.getName(), commandOption, false, arg);
-
-        this.updateReadmeWithBadge(
-            this.generateHTMLBadge(this.data.version ?? 'N/A', 'blue')
-        );
+        return new Promise((resolve, reject) => {
+            if (this.setupData(this.getName(), commandOption, false, arg)) {
+                this.updateReadmeWithBadge(
+                    this.generateHTMLBadge(this.data.version ?? 'N/A', 'blue')
+                ).then(data => {
+                    resolve(data);
+                }).catch(() => {
+                    reject('Error reading README file.');
+                });
+            }
+        });
     }
 }
 
