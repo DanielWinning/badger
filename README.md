@@ -1,7 +1,7 @@
 # Badger | JS Badge Generation Package
 
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-0.2.0-blue" alt="Version 0.2.0">
+<img src="https://img.shields.io/badge/Version-0.2.1-blue" alt="Version 0.2.1">
 <!-- Coverage Badge -->
 <img src="https://img.shields.io/badge/Coverage-75.23%25-red" alt="Coverage 75.23%">
 

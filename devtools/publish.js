@@ -14,6 +14,7 @@ const commands = [
     `git tag -a ${tag} -m "Release ${tag}"`,
     `git add .`,
     `git commit -m "Release ${tag}"`,
+    'git push',
     `git push origin ${tag}`,
     'npm publish',
 ];
@@ -29,6 +30,7 @@ readline.question(publishConfirm, selection => {
        execSync(commands.join(' && '), {
            stdio: 'inherit'
        });
+       readline.close();
    } catch (error) {
        console.error(`There was an error: ${error}`);
        readline.close();
