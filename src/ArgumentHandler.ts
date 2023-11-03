@@ -1,6 +1,5 @@
 import { CommandOption } from './CommandOption';
 import { IFlag } from './Interface/IFlag';
-import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
 import { Messages } from './Enum/Messages';
 
 class ArgumentHandler
@@ -38,10 +37,13 @@ class ArgumentHandler
     private setupCommandOptions(): void
     {
         this.commandOptions.push(
-            new CommandOption('jest', new JestCoverageGenerator(), false, true)
+            new CommandOption('jest', false, true)
         );
         this.commandOptions.push(
-            new CommandOption('readme', null, false, true)
+            new CommandOption('readme', false, true)
+        );
+        this.commandOptions.push(
+            new CommandOption('version', false, true)
         );
     }
 

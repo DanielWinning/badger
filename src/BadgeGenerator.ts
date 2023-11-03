@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import { CommandOption } from './CommandOption';
 import { IBadgeGenerator } from './Interface/IBadgeGenerator';
-import {ArgumentHandler} from "./ArgumentHandler";
+import { ArgumentHandler } from './ArgumentHandler';
 
 abstract class BadgeGenerator implements IBadgeGenerator
 {
@@ -13,8 +13,8 @@ abstract class BadgeGenerator implements IBadgeGenerator
 
     /**
      * @param {string} name
-     * @param {isPercentage} boolean
      * @param {CommandOption} commandOption
+     * @param {boolean} isPercentage
      * @param {string?} arg
      *
      * @private
@@ -38,6 +38,11 @@ abstract class BadgeGenerator implements IBadgeGenerator
      * @param {string?} arg
      */
     abstract generate(commandOption: CommandOption, arg?: string): void;
+
+    /**
+     * @returns {string}
+     */
+    abstract getName(): string;
 
     /**
      * @param {string} value

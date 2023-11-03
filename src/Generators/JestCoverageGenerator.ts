@@ -3,13 +3,18 @@ import { CommandOption } from '../CommandOption';
 
 class JestCoverageGenerator extends BadgeGenerator
 {
+    public getName()
+    {
+        return 'Coverage';
+    }
+
     /**
      * @param {CommandOption} commandOption
      * @param {string?} arg
      */
     public generate(commandOption: CommandOption, arg?: string): void
     {
-        this.setupData('Coverage', commandOption, true, arg);
+        this.setupData(this.getName(), commandOption, true, arg);
 
         const filePercentages: Array<string> = this.getFileCoveragePercentages();
         const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);

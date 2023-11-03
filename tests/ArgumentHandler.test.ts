@@ -1,11 +1,9 @@
 import { ArgumentHandler } from '../src/ArgumentHandler';
 import { CommandOption } from '../src/CommandOption';
 import { Messages } from '../src/Enum/Messages';
-import {JestCoverageGenerator} from "../src/Generators/JestCoverageGenerator";
 
 const jestCommand = new CommandOption(
     'jest',
-    new JestCoverageGenerator(),
     false,
     true
 );

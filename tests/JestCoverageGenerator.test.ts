@@ -1,6 +1,6 @@
+import { ArgumentHandler } from '../src/ArgumentHandler';
 import { CommandOption } from '../src/CommandOption';
 import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
-import {ArgumentHandler} from "../src/ArgumentHandler";
 
 const jestConsole = console;
 
@@ -24,7 +24,7 @@ describe('Class: JestCoverageGenerator', () => {
         const consoleSpy = jest.spyOn(console, 'log');
 
         jestCoverageGenerator.generate(
-            new CommandOption('jest', new JestCoverageGenerator(), false, true),
+            new CommandOption('jest', false, true),
             './coverage/coverage-final.json'
         );
 
@@ -37,7 +37,7 @@ describe('Class: JestCoverageGenerator', () => {
 
         expect(() => {
             jestCoverageGenerator.generate(
-                new CommandOption('jest', new JestCoverageGenerator(), false, true),
+                new CommandOption('jest', false, true),
                 './invalid/path'
             );
         }).toThrowError();
@@ -48,7 +48,7 @@ describe('Class: JestCoverageGenerator', () => {
             const jestCoverageGenerator = new JestCoverageGenerator();
 
             jestCoverageGenerator.generate(
-                new CommandOption('jest', new JestCoverageGenerator(), false, true)
+                new CommandOption('jest', false, true)
             );
         }).toThrowError();
     });
@@ -66,7 +66,7 @@ describe('Class: JestCoverageGenerator', () => {
         const consoleSpy = jest.spyOn(console, 'log');
 
         jestCoverageGenerator.generate(
-            new CommandOption('jest', new JestCoverageGenerator(), false, true),
+            new CommandOption('jest', false, true),
             './coverage/coverage-final.json'
         );
 
@@ -86,7 +86,7 @@ describe('Class: JestCoverageGenerator', () => {
             const jestCoverageGenerator = new JestCoverageGenerator();
 
             jestCoverageGenerator.generate(
-                new CommandOption('jest', new JestCoverageGenerator(), false, true),
+                new CommandOption('jest', false, true),
                 './coverage/coverage-final.json'
             );
         }).toThrowError();

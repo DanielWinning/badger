@@ -1,7 +1,9 @@
 # Badger | JS Badge Generation Package
 
+<!-- Version Badge -->
+<img src="https://img.shields.io/badge/Version-0.2.0-blue" alt="Version 0.2.0">
 <!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-90.25%25-green" alt="Coverage 90.25%">
+<img src="https://img.shields.io/badge/Coverage-75.23%25-red" alt="Coverage 75.23%">
 
 ## Installation
 
@@ -28,6 +30,22 @@ necessary comment for each badge is listed below.
 
 ```shell
 npx badger --jest ./path/to/coverage-final.json
+```
+
+#### Version
+
+Accepts a valid `package.json` or `composer.json` filepath.
+
+**README Comment:**
+
+```html
+<!-- Version Badge -->
+```
+
+**Command:**
+
+```shell
+npx badger --version ./path/to/json
 ```
 
 ### Additional Options
