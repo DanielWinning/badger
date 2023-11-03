@@ -2,7 +2,7 @@
 
 <div>
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-0.2.3-blue" alt="Version 0.2.3">
+<img src="https://img.shields.io/badge/Version-0.2.4-blue" alt="Version 0.2.4">
 <!-- Coverage Badge -->
 <img src="https://img.shields.io/badge/Coverage-75.23%25-red" alt="Coverage 75.23%">
 </div>
@@ -22,13 +22,9 @@ necessary comment for each badge is listed below.
 
 #### Jest Coverage
 
-**README Comment:**
-
 ```html
 <!-- Coverage Badge -->
 ```
-
-**Command:**
 
 ```shell
 npx badger --jest ./path/to/coverage-final.json
@@ -38,13 +34,9 @@ npx badger --jest ./path/to/coverage-final.json
 
 Accepts a valid `package.json` or `composer.json` filepath.
 
-**README Comment:**
-
 ```html
 <!-- Version Badge -->
 ```
-
-**Command:**
 
 ```shell
 npx badger --version ./path/to/json
