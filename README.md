@@ -2,9 +2,9 @@
 
 <div>
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-0.2.14-blue" alt="Version 0.2.14">
+<img src="https://img.shields.io/badge/Version-0.2.15-blue" alt="Version 0.2.15">
 <!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-83.08%25-yellow" alt="Coverage 83.08%">
+<img src="https://img.shields.io/badge/Coverage-97.77%25-green" alt="Coverage 97.77%">
 </div>
 
 A package to easily generate badges for your Git repositories (like the ones above).
