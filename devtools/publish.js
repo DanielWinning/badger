@@ -1,10 +1,40 @@
 const { execSync } = require('child_process');
+const fs = require('fs');
 
 const args = process.argv;
 const tag = args.length > 2 ? args[2] : null;
 
 if (isNaN(parseFloat(tag))) {
     console.error('Error: please provide a numeric version tag.');
+}
+
+function getCurrentVersion()
+{
+    const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+
+    return packageJson.version;
+}
+
+function checkVersionIsValid(targetVersion)
+{
+    return getPossibleTargetVersions().includes(targetVersion);
+}
+
+function getPossibleTargetVersions()
+{
+    const version = getCurrentVersion();
+    const [currentMajor, currentMinor, currentPatch] = version.split('.');
+
+    return [
+        `${currentMajor}.${currentMinor}.${parseInt(currentPatch) + 1}`,
+        `${currentMajor}.${parseInt(currentMinor) + 1}.0`,
+        `${parseInt(currentMajor) + 1}.0.0`,
+    ];
+}
+
+if (!checkVersionIsValid(tag)) {
+    console.error(`You have entered an invalid version based on the current version which is: ${getCurrentVersion()}. Did you mean one of these: ${getPossibleTargetVersions().join(', ')}`)
+    process.exit();
 }
 
 let commitMessage = null;
@@ -55,4 +85,4 @@ readline.question(publishConfirm, selection => {
    }
 });
 
-return;
+process.exit();
