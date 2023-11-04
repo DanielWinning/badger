@@ -1,6 +1,6 @@
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
-import {Messages} from "../Enum/Messages";
+import { Messages } from '../Enum/Messages';
 
 class VersionGenerator extends BadgeGenerator
 {
@@ -12,18 +12,25 @@ class VersionGenerator extends BadgeGenerator
         return 'Version';
     }
 
+    /**
+     * @param {CommandOption} commandOption
+     * @param {?string} arg
+     *
+     * @returns {Promise<any>}
+     */
     public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            if (this.setupData(this.getName(), commandOption, false, arg)) {
-                this.updateReadmeWithBadge(
-                    this.generateHTMLBadge(this.data.version ?? 'N/A', 'blue')
-                ).then(data => {
-                    resolve(data);
-                }).catch(() => {
-                    reject(Messages.ERROR_READING_README);
-                });
-            }
+            this.setupData(this.getName(), commandOption, false, arg)
+                .then(() => {
+                    this.updateReadmeWithBadge(
+                        this.generateHTMLBadge(this.data.version ?? 'N/A', 'blue')
+                    ).then(data => {
+                        resolve(data);
+                    }).catch(() => {
+                        reject(Messages.ERROR_READING_README);
+                    });
+                }).catch(err => reject(err));
         });
     }
 }

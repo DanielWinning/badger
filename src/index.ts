@@ -1,4 +1,5 @@
 import { ArgumentHandler } from './ArgumentHandler';
+import { ConsoleColor } from './Enum/ConsoleColor';
 import { IFlag } from './Interface/IFlag';
 import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
 import { VersionGenerator } from './Generators/VersionGenerator';
@@ -19,8 +20,8 @@ ArgumentHandler.argumentHandler.getFlags().forEach(async (flag: IFlag) => {
 
     await generator.generate(flag.commandOption, flag.value)
         .then(response => {
-            console.log(response);
+            console.log(`${ConsoleColor.FgGreen}${response}${ConsoleColor.Reset}`);
         }).catch((error) => {
-            console.error(error);
+            console.error(`${ConsoleColor.FgRed}${error}${ConsoleColor.Reset}`);
         });
 });

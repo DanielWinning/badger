@@ -1,9 +1,8 @@
 import * as fs from 'fs';
+import { ArgumentHandler } from './ArgumentHandler';
 import { CommandOption } from './CommandOption';
 import { IBadgeGenerator } from './Interface/IBadgeGenerator';
-import { ArgumentHandler } from './ArgumentHandler';
-import {Problem} from "webpack-cli";
-import {Messages} from "./Enum/Messages";
+import { Messages } from './Enum/Messages';
 
 abstract class BadgeGenerator implements IBadgeGenerator
 {

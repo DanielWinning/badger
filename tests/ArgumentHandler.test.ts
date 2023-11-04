@@ -84,4 +84,12 @@ describe('Class: Argument Handler', () => {
 
         expect(argumentHandler).toBeInstanceOf(ArgumentHandler);
     });
+
+    it('should throw an error when more than one instance of ArgumentHandler is created', () => {
+        new ArgumentHandler([]);
+
+        expect(() => {
+            new ArgumentHandler([])
+        }).toThrowError();
+    });
 });
