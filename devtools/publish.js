@@ -1,11 +1,13 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
+const ConsoleLogger = require('@dannyxcii/console-logger');
+const Clogger = ConsoleLogger.ConsoleLogger;
 
 const args = process.argv;
 const tag = args.length > 2 ? args[2] : null;
 
 if (isNaN(parseFloat(tag))) {
-    console.error('Error: please provide a numeric version tag.');
+    Clogger.logError('Error: please provide a numeric version tag.');
 }
 
 function getCurrentVersion()
@@ -33,7 +35,11 @@ function getPossibleTargetVersions()
 }
 
 if (!checkVersionIsValid(tag)) {
-    console.error(`You have entered an invalid version based on the current version which is: ${getCurrentVersion()}. Did you mean one of these: ${getPossibleTargetVersions().join(', ')}`)
+    let validVersionString = getPossibleTargetVersions().join(', ');
+
+    Clogger.logError(
+        `You have entered an invalid version based on the current version which is: ${getCurrentVersion()}. Did you mean one of these: ${validVersionString}`
+    );
     process.exit();
 }
 
@@ -80,7 +86,7 @@ readline.question(publishConfirm, selection => {
        });
        readline.close();
    } catch (error) {
-       console.error(`There was an error: ${error}`);
+       Clogger.logError(`There was an error: ${error}`);
        readline.close();
    }
 });
