@@ -1,8 +1,12 @@
 const { execSync } = require('child_process');
-const fs = require('fs');
 
 const args = process.argv;
-const tag = args[2];
+const tag = args.length > 2 ? args[2] : null;
+
+if (isNaN(parseFloat(tag))) {
+    console.error('Error: please provide a numeric version tag.');
+}
+
 let commitMessage = null;
 
 if (args.length > 3) {
@@ -30,6 +34,7 @@ const commands = [
     'npm publish',
     'git checkout dev',
     'git merge main --no-edit',
+    'git push',
 ];
 
 readline.question(publishConfirm, selection => {
