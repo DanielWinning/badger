@@ -14,6 +14,8 @@ const readline = require('readline').createInterface({
 
 const publishConfirm = `Publish your package with the tag: ${tag}? `;
 const commands = [
+    'git checkout main',
+    'git merge dev --no-edit',
     'npm run build',
     'npm run test',
     'node ./bin/badger --version ./package.json',
@@ -23,6 +25,7 @@ const commands = [
     'git push',
     `git push origin ${tag}`,
     'npm publish',
+    'git checkout dev',
 ];
 
 readline.question(publishConfirm, selection => {
