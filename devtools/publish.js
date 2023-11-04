@@ -17,12 +17,12 @@ const commands = [
     'npm run build',
     'npm run test',
     'node ./bin/badger --version ./package.json',
-    `git tag -a ${tag} -m "Release ${tag}"`,
-    `git add .`,
-    `git commit -m "Release ${tag}${commitMessage ? ' - ' + commitMessage : ''}"`,
+    'git checkout main',
+    `git merge dev --no-edit -m "Release ${tag}${commitMessage ? ' - ' + commitMessage : ''}"`,
     'git push',
+    `git tag -a ${tag} -m "Release ${tag}"`,
     `git push origin ${tag}`,
-    'npm publish',
+    'npm publish'
 ];
 
 readline.question(publishConfirm, selection => {
