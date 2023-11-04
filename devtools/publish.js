@@ -84,5 +84,3 @@ readline.question(publishConfirm, selection => {
        readline.close();
    }
 });
-
-process.exit();
