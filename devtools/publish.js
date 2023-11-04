@@ -14,7 +14,6 @@ const readline = require('readline').createInterface({
 
 const publishConfirm = `Publish your package with the tag: ${tag}? `;
 const commands = [
-    'npm run build',
     'npm run test',
     'node ./bin/badger --version ./package.json',
     'git checkout main',
