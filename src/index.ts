@@ -1,13 +1,13 @@
 import { ArgumentHandler } from './ArgumentHandler';
 import { IFlag } from './Interface/IFlag';
 import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
-import Logger from '@dannyxcii/console-logger';
 import { VersionGenerator } from './Generators/VersionGenerator';
+import { ConsoleLogger } from '@dannyxcii/console-logger';
 
 try {
     new ArgumentHandler(process.argv);
 } catch (err) {
-    Logger.logError(err);
+    ConsoleLogger.logError(err);
     process.exit();
 }
 
@@ -25,8 +25,8 @@ ArgumentHandler.argumentHandler.getFlags().forEach(async (flag: IFlag) => {
 
     await generator.generate(flag.commandOption, flag.value)
         .then(response => {
-            Logger.logSuccess(response);
+            ConsoleLogger.logSuccess(response);
         }).catch((error) => {
-            Logger.logError(error);
+            ConsoleLogger.logError(error);
         });
 });
