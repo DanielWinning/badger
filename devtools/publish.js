@@ -1,4 +1,6 @@
 const { execSync } = require('child_process');
+const fs = require('fs');
+
 const args = process.argv;
 const tag = args[2];
 let commitMessage = null;
@@ -18,14 +20,16 @@ const commands = [
     'git merge dev --no-edit',
     'npm run build',
     'npm run test',
+    `npm run update-version ${tag}`,
     'node ./bin/badger --version ./package.json',
-    `git tag -a ${tag} -m "Release ${tag}"`,
     `git add .`,
     `git commit -m "Release ${tag}${commitMessage ? ' - ' + commitMessage : ''}"`,
     'git push',
+    `git tag -a ${tag} -m "Release ${tag}"`,
     `git push origin ${tag}`,
     'npm publish',
     'git checkout dev',
+    'git merge main --no-edit',
 ];
 
 readline.question(publishConfirm, selection => {

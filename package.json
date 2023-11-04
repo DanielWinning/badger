@@ -10,7 +10,8 @@
     "build": "webpack --config webpack.config.js --mode=production",
     "watch": "webpack --config webpack.config.js --mode=development --watch",
     "test": "jest --verbose && node ./bin/badger --jest ./coverage/coverage-final.json",
-    "publisher": "node ./devtools/publish.js"
+    "publisher": "node ./devtools/publish.js",
+    "update-version": "node ./devtools/update-version.js"
   },
   "keywords": [],
   "author": "",
