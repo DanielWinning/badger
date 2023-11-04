@@ -21,7 +21,7 @@ describe('Class: JestCoverageGenerator', () => {
         expect(jestCoverageGenerator).toBeInstanceOf(JestCoverageGenerator);
     });
 
-    it('should set correct data', () => {
+    it('should resolve with valid coverage path provided', () => {
         const jestCoverageGenerator = new JestCoverageGenerator();
 
         expect(jestCoverageGenerator.generate(
@@ -30,7 +30,7 @@ describe('Class: JestCoverageGenerator', () => {
         )).resolves.toStrictEqual('Coverage Badge added to README.');
     });
 
-    it('should throw an error when given an invalid filepath', () => {
+    it('should reject when provided an invalid filepath', () => {
         const jestCoverageGenerator = new JestCoverageGenerator();
 
         expect(jestCoverageGenerator.generate(
@@ -41,7 +41,7 @@ describe('Class: JestCoverageGenerator', () => {
         );
     });
 
-    it('should throw an error when called without filepath', () => {
+    it('should reject when provided no filepath', () => {
         const jestCoverageGenerator = new JestCoverageGenerator();
 
         expect(jestCoverageGenerator.generate(
@@ -69,7 +69,7 @@ describe('Class: JestCoverageGenerator', () => {
         });
     });
 
-    it('should throw an error when the README path is invalid', () => {
+    it('should reject when the README path is invalid', () => {
         new ArgumentHandler([
             'C:\\Program Files\\nodejs\\node.exe',
             'C:\\Development\\Packages\\badger\\dist\\badger.js',
@@ -83,6 +83,6 @@ describe('Class: JestCoverageGenerator', () => {
         expect(jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
             './coverage/coverage-final.json'
-        )).rejects.toStrictEqual('Error reading README file.');
+        )).rejects.toStrictEqual(`Error: ${Messages.ERROR_READING_README}`);
     });
 });

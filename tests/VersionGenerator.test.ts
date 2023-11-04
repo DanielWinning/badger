@@ -17,5 +17,6 @@ describe('Class: VersionGenerator', () => {
         const versionGenerator = new VersionGenerator();
 
         expect(versionGenerator).toBeInstanceOf(VersionGenerator);
+        expect(versionGenerator.getName()).toStrictEqual('Version');
     });
 });
