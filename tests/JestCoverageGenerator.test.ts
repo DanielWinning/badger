@@ -69,7 +69,7 @@ describe('Class: JestCoverageGenerator', () => {
         });
     });
 
-    it('should reject when the README path is invalid', () => {
+    it('should reject when the README path is invalid', async () => {
         new ArgumentHandler([
             'C:\\Program Files\\nodejs\\node.exe',
             'C:\\Development\\Packages\\badger\\dist\\badger.js',
@@ -80,9 +80,11 @@ describe('Class: JestCoverageGenerator', () => {
         ]);
         const jestCoverageGenerator = new JestCoverageGenerator();
 
-        expect(jestCoverageGenerator.generate(
+        await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
             './coverage/coverage-final.json'
-        )).rejects.toStrictEqual(`Error: ${Messages.ERROR_READING_README}`);
+        ).then().catch(err => {
+            expect(err).toStrictEqual(`Error: ${Messages.ERROR_READING_README}`);
+        });
     });
 });

@@ -149,6 +149,26 @@ abstract class BadgeGenerator implements IBadgeGenerator
             }
         });
     }
+
+    /**
+     * @param {string} totalPercentage
+     *
+     * @returns {string}
+     */
+    public getStatusFromPercentageString(totalPercentage: string): string
+    {
+        const coverage = parseFloat(totalPercentage);
+
+        if (coverage >= 90) {
+            return 'green';
+        } else if (coverage >= 80) {
+            return 'yellow';
+        } else if (coverage >= 70) {
+            return 'orange';
+        } else {
+            return 'red';
+        }
+    }
 }
 
 export { BadgeGenerator };

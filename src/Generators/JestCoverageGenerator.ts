@@ -1,6 +1,6 @@
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
-import {Messages} from "../Enum/Messages";
+import { Messages } from '../Enum/Messages';
 
 class JestCoverageGenerator extends BadgeGenerator
 {
@@ -22,7 +22,7 @@ class JestCoverageGenerator extends BadgeGenerator
                 .then(() => {
                     const filePercentages: Array<string> = this.getFileCoveragePercentages();
                     const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);
-                    const coverageStatus: string = this.getCoverageStatus(totalCoveragePercentage);
+                    const coverageStatus: string = this.getStatusFromPercentageString(totalCoveragePercentage);
                     const badge: string = this.generateHTMLBadge(totalCoveragePercentage, coverageStatus);
 
                     this.updateReadmeWithBadge(badge)
@@ -86,26 +86,6 @@ class JestCoverageGenerator extends BadgeGenerator
             });
 
         return (Number(sum) / count).toFixed(2);
-    }
-
-    /**
-     * @param {string} totalPercentage
-     *
-     * @returns {string}
-     *
-     * @private
-     */
-    private getCoverageStatus(totalPercentage: string): string
-    {
-        const coverage = parseFloat(totalPercentage);
-
-        if (coverage >= 90) {
-            return 'green';
-        } else if (coverage >= 80) {
-            return 'yellow';
-        } else {
-            return 'red';
-        }
     }
 }
 
