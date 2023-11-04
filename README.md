@@ -2,7 +2,7 @@
 
 <div>
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-0.2.9-blue" alt="Version 0.2.9">
+<img src="https://img.shields.io/badge/Version-0.2.10-blue" alt="Version 0.2.10">
 <!-- Coverage Badge -->
 <img src="https://img.shields.io/badge/Coverage-83.08%25-yellow" alt="Coverage 83.08%">
 </div>
