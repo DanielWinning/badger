@@ -26,6 +26,7 @@ const commands = [
     `git push origin ${tag}`,
     'npm publish',
     'git checkout dev',
+    'git merge main --no-edit',
 ];
 
 readline.question(publishConfirm, selection => {
