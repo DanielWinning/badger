@@ -1,13 +1,13 @@
 import { ArgumentHandler } from './ArgumentHandler';
-import { ConsoleColor } from './Enum/ConsoleColor';
 import { IFlag } from './Interface/IFlag';
 import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
+import Logger from '@dannyxcii/console-logger';
 import { VersionGenerator } from './Generators/VersionGenerator';
 
 try {
     new ArgumentHandler(process.argv);
 } catch (err) {
-    console.error(`${ConsoleColor.FgRed}${err}${ConsoleColor.Reset}`);
+    Logger.logError(err);
     process.exit();
 }
 
@@ -25,8 +25,8 @@ ArgumentHandler.argumentHandler.getFlags().forEach(async (flag: IFlag) => {
 
     await generator.generate(flag.commandOption, flag.value)
         .then(response => {
-            console.log(`${ConsoleColor.FgGreen}${response}${ConsoleColor.Reset}`);
+            Logger.logSuccess(response);
         }).catch((error) => {
-            console.error(`${ConsoleColor.FgRed}${error}${ConsoleColor.Reset}`);
+            Logger.logError(error);
         });
 });
