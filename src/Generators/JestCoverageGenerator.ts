@@ -30,7 +30,7 @@ class JestCoverageGenerator extends BadgeGenerator
                             resolve(data);
                         })
                         .catch(() => {
-                            reject(Messages.ERROR_READING_README);
+                            reject(`Error: ${Messages.ERROR_READING_README}`);
                         });
                 })
                 .catch(err => reject(err));

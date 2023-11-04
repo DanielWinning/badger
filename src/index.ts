@@ -4,7 +4,12 @@ import { IFlag } from './Interface/IFlag';
 import { JestCoverageGenerator } from './Generators/JestCoverageGenerator';
 import { VersionGenerator } from './Generators/VersionGenerator';
 
-new ArgumentHandler(process.argv);
+try {
+    new ArgumentHandler(process.argv);
+} catch (err) {
+    console.error(`${ConsoleColor.FgRed}${err}${ConsoleColor.Reset}`);
+    process.exit();
+}
 
 const badgeGenerators = {
     jest: new JestCoverageGenerator(),
