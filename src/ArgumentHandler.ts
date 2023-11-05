@@ -51,6 +51,9 @@ class ArgumentHandler
         this.commandOptions.push(
             new CommandOption('version', false, true)
         );
+        this.commandOptions.push(
+            new CommandOption('license', false, true)
+        )
     }
 
     /**

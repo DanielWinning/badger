@@ -3,14 +3,7 @@ import { CommandOption } from '../src/CommandOption';
 import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
 import { Messages } from '../src/Enum/Messages';
 
-const jestConsole = console;
-
-beforeEach(() => {
-    global.console = require('console');
-});
-
 afterEach(() => {
-    global.console = jestConsole;
     ArgumentHandler.argumentHandler = undefined;
 });
 

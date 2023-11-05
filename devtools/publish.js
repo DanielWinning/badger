@@ -62,6 +62,7 @@ const commands = [
     'npm run test',
     `npm run update-version ${tag}`,
     'node ./bin/badger --version ./package.json',
+    `node ./bin/badger --license ./package.json`,
     `git add .`,
     `git commit -m "Release ${tag}${commitMessage ? ' - ' + commitMessage : ''}"`,
     'git push',
@@ -75,7 +76,7 @@ const commands = [
 
 readline.question(publishConfirm, selection => {
    if (selection !== 'y') {
-       console.log('Cancelling publish.');
+       Clogger.logInfo('Cancelling publish.');
        readline.close();
        return;
    }
