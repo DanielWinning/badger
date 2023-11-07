@@ -53,7 +53,10 @@ class ArgumentHandler
         );
         this.commandOptions.push(
             new CommandOption('license', false, true)
-        )
+        );
+        this.commandOptions.push(
+            new CommandOption('phpunit', false, true)
+        );
     }
 
     /**

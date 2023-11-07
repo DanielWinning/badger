@@ -43,8 +43,10 @@ abstract class BadgeGenerator implements IBadgeGenerator
     /**
      * @param {CommandOption} commandOption
      * @param {string?} arg
+     *
+     * @returns {Promise<any>}
      */
-    abstract generate(commandOption: CommandOption, arg?: string): void;
+    abstract generate(commandOption: CommandOption, arg?: string): Promise<any>;
 
     /**
      * @returns {string}
@@ -89,7 +91,11 @@ abstract class BadgeGenerator implements IBadgeGenerator
     private getJsonDataFromFilepath(filepath: string): Record<string, any>
     {
         try {
-            return JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+            if (filepath.includes('.json')) {
+                return JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+            }
+
+            if (!filepath.includes('.xml')) throw new Error();
         } catch (error) {
             throw new Error(Messages.ERROR_READING_FROM_FILEPATH.replace('%s', filepath));
         }

@@ -6,7 +6,7 @@ class JestCoverageGenerator extends BadgeGenerator
 {
     public getName()
     {
-        return 'Coverage';
+        return 'JS Coverage';
     }
 
     /**
@@ -17,8 +17,8 @@ class JestCoverageGenerator extends BadgeGenerator
      */
     public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
-        return new Promise((resolve, reject) => {
-            this.setupData(this.getName(), commandOption, true, arg)
+        return new Promise(async (resolve, reject) => {
+            await this.setupData(this.getName(), commandOption, true, arg)
                 .then(() => {
                     const filePercentages: Array<string> = this.getFileCoveragePercentages();
                     const totalCoveragePercentage: string = this.getTotalCoverage(filePercentages);

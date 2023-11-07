@@ -3,8 +3,8 @@
 <div>
 <!-- Version Badge -->
 <img src="https://img.shields.io/badge/Version-0.3.0-blue" alt="Version 0.3.0">
-<!-- Coverage Badge -->
-<img src="https://img.shields.io/badge/Coverage-88.88%25-yellow" alt="Coverage 88.88%">
+<!-- JS Coverage Badge -->
+<img src="https://img.shields.io/badge/JS Coverage-78.77%25-orange" alt="JS Coverage 78.77%">
 <!-- License Badge -->
 <img src="https://img.shields.io/badge/License-GPL--3.0--only-34ad9b" alt="License GPL--3.0--only">
 </div>
@@ -27,7 +27,7 @@ necessary comment for each badge is listed below.
 #### Jest Coverage
 
 ```html
-<!-- Coverage Badge -->
+<!-- JS Coverage Badge -->
 ```
 
 ```shell
@@ -58,6 +58,16 @@ Accepts a valid `package.json` or `composer.json` filepath.
 npx badger --license ./path/to/json
 ```
 
+#### PHPUnit Coverage
+
+```html
+<!-- PHP Coverage Badge -->
+```
+
+```shell
+npx badger --phpunit ./path/to/coverage.xml
+```
+
 ### Additional Options
 
 By default, Badger attempts to update `./README.md` - if your README file is located somewhere else you can pass the
@@ -65,4 +75,5 @@ By default, Badger attempts to update `./README.md` - if your README file is loc
 
 ```shell
 npx badger --jest ./path/to/coverage --readme ./path/to/readme
+```
 ```
