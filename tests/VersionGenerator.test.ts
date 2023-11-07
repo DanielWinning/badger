@@ -59,4 +59,38 @@ describe('Class: VersionGenerator', () => {
         expect(versionGenerator.getStatusFromPercentageString('70')).toStrictEqual('orange');
         expect(versionGenerator.getStatusFromPercentageString('60')).toStrictEqual('red');
     });
+
+    it('should resolve when provided valid filepath', async () => {
+        new ArgumentHandler([
+            'C:\\Program Files\\nodejs\\node.exe',
+            'C:\\Development\\Packages\\badger\\dist\\badger.js',
+            '--version',
+            './package.json',
+        ]);
+        const versionGenerator = new VersionGenerator();
+
+        await versionGenerator.generate(
+            new CommandOption('version', false, true),
+            './package.json'
+        ).then(data => {
+            expect(data).toStrictEqual('Version Badge added to README.');
+        });
+    });
+
+    it('should resolve when provided valid JSON filepath with no version', async () => {
+        new ArgumentHandler([
+            'C:\\Program Files\\nodejs\\node.exe',
+            'C:\\Development\\Packages\\badger\\dist\\badger.js',
+            '--version',
+            './package-no-version.json',
+        ]);
+        const versionGenerator = new VersionGenerator();
+
+        await versionGenerator.generate(
+            new CommandOption('version', false, true),
+            './package.json'
+        ).then(data => {
+            expect(data).toStrictEqual('Version Badge added to README.');
+        });
+    });
 });

@@ -2,9 +2,7 @@ import * as fs from 'fs';
 import * as xml2js from 'xml2js';
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
-import {parse} from "ts-jest";
-import {Messages} from "../Enum/Messages";
-import {parseString} from "xml2js";
+import { Messages } from '../Enum/Messages';
 
 class PHPCoverageBadgeGenerator extends BadgeGenerator
 {
@@ -12,16 +10,16 @@ class PHPCoverageBadgeGenerator extends BadgeGenerator
         return 'PHP Coverage';
     }
 
-    generate(commandOption: CommandOption, arg?: string): Promise<any>
+    public async generate(commandOption: CommandOption, arg?: string): Promise<any>
     {
         return new Promise(async (resolve, reject) => {
             await this.setupData(this.getName(), commandOption, true, arg)
-                .then(() => {
+                .then(async () => {
                     const coverage = this.getCoverage(arg);
                     const status = this.getStatusFromPercentageString(coverage);
                     const badge: string = this.generateHTMLBadge(coverage, status);
 
-                    this.updateReadmeWithBadge(badge)
+                    await this.updateReadmeWithBadge(badge)
                         .then(data => {
                             resolve(data);
                         })

@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import { ArgumentHandler } from '../src/ArgumentHandler';
 import { CommandOption } from '../src/CommandOption';
 import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
@@ -5,6 +6,10 @@ import { Messages } from '../src/Enum/Messages';
 
 afterEach(() => {
     ArgumentHandler.argumentHandler = undefined;
+    fs.writeFileSync(
+        './tests/data/README.md',
+        `<!-- JS Coverage Badge -->\n<!-- Version Badge -->\n<!-- License Badge -->`
+    );
 });
 
 describe('Class: JestCoverageGenerator', () => {
@@ -31,9 +36,7 @@ describe('Class: JestCoverageGenerator', () => {
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
             './invalid/path'
-        ).then(data => {
-            console.log(data);
-        }).catch(err => {
+        ).catch(err => {
             expect(err).toStrictEqual(
                 new Error(Messages.ERROR_READING_FROM_FILEPATH.replace('%s', './invalid/path'))
             );
@@ -65,7 +68,7 @@ describe('Class: JestCoverageGenerator', () => {
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
             './coverage/coverage-final.json'
-        ).then(data => {
+        ).then(async (data) => {
             expect(data).toStrictEqual('JS Coverage Badge added to README.');
         });
     });
