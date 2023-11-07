@@ -55,6 +55,9 @@ class PHPCoverageBadgeGenerator extends BadgeGenerator
                 coveredMethodsAndStatements = 0;
 
             coverageData.file.forEach((file: any) => {
+                if (file.class === undefined) {
+                    return;
+                }
                 const fileMetrics = file.class[0].metrics[0].$;
 
                 totalMethodsAndStatements += parseInt(fileMetrics.methods) + parseInt(fileMetrics.statements);
