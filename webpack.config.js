@@ -1,4 +1,5 @@
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
     entry: './src/index.ts',
@@ -20,4 +21,10 @@ module.exports = {
         libraryTarget: 'commonjs2',
         path: path.resolve(__dirname, 'dist')
     },
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({
+            extractComments: false
+        })]
+    }
 }
