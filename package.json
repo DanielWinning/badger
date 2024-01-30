@@ -1,6 +1,6 @@
 {
   "name": "@dannyxcii/badger",
-  "version": "0.4.2",
+  "version": "0.4.1",
   "description": "Badge generator for README files.",
   "main": "dist/badger.js",
   "bin": {
