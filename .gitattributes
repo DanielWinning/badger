@@ -1,0 +1,5 @@
+/tests/ export-ignore
+jest.config.js export-ignore
+tsconfig.json export-ignore
+webpack.config.js export-ignore
+package-lock.json export-ignore
