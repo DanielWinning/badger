@@ -4,7 +4,59 @@ import { CommandOption } from '../src/CommandOption';
 import { JestCoverageGenerator } from '../src/Generators/JestCoverageGenerator';
 import { Messages } from '../src/Enum/Messages';
 
-afterEach(() => {
+const coverageData = (): object => {
+    return {
+        "badger\\src\\Generators\\ArgumentHandler.ts": {
+            "path": "badger\\src\\ArgumentHandler.ts",
+            "statementMap": {
+                "0": {
+                    "start": {
+                        "line": 1,
+                        "column": 0
+                    },
+                    "end": {
+                        "line":1,
+                        "column": 48
+                    }
+                },
+                "1": {
+                    "start": {
+                        "line": 3,
+                        "column": 0
+                    },
+                    "end": {
+                        "line":3,
+                        "column": 43
+                    }
+                },
+            },
+            "f": {
+                "0": 1,
+                "1": 0,
+                "2": 0,
+                "3": 0,
+                "4": 0,
+                "5": 0
+            },
+            "b": {
+                "0": [0],
+                "1": [0],
+                "2": [0],
+                "3" :[0,0]
+            },
+            "s":{
+                "0": 1,
+                "1": 1,
+                "2": 1,
+                "3": 0,
+                "4": 0,
+                "5": 0
+            }
+        }
+    };
+}
+
+afterEach((): void => {
     ArgumentHandler.argumentHandler = undefined;
     fs.writeFileSync(
         './tests/data/README.md',
@@ -13,25 +65,29 @@ afterEach(() => {
 });
 
 describe('Class: JestCoverageGenerator', () => {
-    it('should create an instance of JestCoverageGenerator', () => {
-        const jestCoverageGenerator = new JestCoverageGenerator();
+    it('should create an instance of JestCoverageGenerator', (): void => {
+        const jestCoverageGenerator: JestCoverageGenerator = new JestCoverageGenerator();
 
         expect(jestCoverageGenerator).toBeInstanceOf(JestCoverageGenerator);
     });
 
-    it('should resolve with valid coverage path provided', async () => {
-        const jestCoverageGenerator = new JestCoverageGenerator();
+    it('should resolve with valid coverage path provided', async (): Promise<void> => {
+        const jestCoverageGenerator: JestCoverageGenerator = new JestCoverageGenerator();
+
+        if (!fs.existsSync('/tmp')) fs.mkdirSync('/tmp');
+
+        fs.writeFileSync('/tmp/coverage-final.json', JSON.stringify(coverageData()));
 
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
-            './coverage/coverage-final.json'
+            '/tmp/coverage-final.json'
         ).then(data => {
             expect(data).toStrictEqual('JS Coverage Badge added to README.');
         });
     });
 
-    it('should reject when provided an invalid filepath', async () => {
-        const jestCoverageGenerator = new JestCoverageGenerator();
+    it('should reject when provided an invalid filepath', async (): Promise<void> => {
+        const jestCoverageGenerator: JestCoverageGenerator = new JestCoverageGenerator();
 
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
@@ -43,7 +99,7 @@ describe('Class: JestCoverageGenerator', () => {
         });
     });
 
-    it('should reject when provided no filepath', async () => {
+    it('should reject when provided no filepath', async (): Promise<void> => {
         const jestCoverageGenerator = new JestCoverageGenerator();
 
          await jestCoverageGenerator.generate(
@@ -53,7 +109,7 @@ describe('Class: JestCoverageGenerator', () => {
         });
     });
 
-    it('should update README when using custom path', async () => {
+    it('should update README when using custom path', async (): Promise<void> => {
         new ArgumentHandler([
             'C:\\Program Files\\nodejs\\node.exe',
             'C:\\Development\\Packages\\badger\\dist\\badger.js',
@@ -63,17 +119,21 @@ describe('Class: JestCoverageGenerator', () => {
             './tests/data/README.md',
         ]);
 
-        const jestCoverageGenerator = new JestCoverageGenerator();
+        if (!fs.existsSync('/tmp')) fs.mkdirSync('/tmp');
+
+        fs.writeFileSync('/tmp/coverage-final.json', JSON.stringify(coverageData()));
+
+        const jestCoverageGenerator: JestCoverageGenerator = new JestCoverageGenerator();
 
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
-            './coverage/coverage-final.json'
+            '/tmp/coverage-final.json'
         ).then(async (data) => {
             expect(data).toStrictEqual('JS Coverage Badge added to README.');
         });
     });
 
-    it('should reject when the README path is invalid', async () => {
+    it('should reject when the README path is invalid', async (): Promise<void> => {
         new ArgumentHandler([
             'C:\\Program Files\\nodejs\\node.exe',
             'C:\\Development\\Packages\\badger\\dist\\badger.js',
@@ -82,11 +142,16 @@ describe('Class: JestCoverageGenerator', () => {
             '--readme',
             './invalid/path',
         ]);
-        const jestCoverageGenerator = new JestCoverageGenerator();
+
+        if (!fs.existsSync('/tmp')) fs.mkdirSync('/tmp');
+
+        fs.writeFileSync('/tmp/coverage-final.json', JSON.stringify(coverageData()));
+
+        const jestCoverageGenerator: JestCoverageGenerator = new JestCoverageGenerator();
 
         await jestCoverageGenerator.generate(
             new CommandOption('jest', false, true),
-            './coverage/coverage-final.json'
+            '/tmp/coverage-final.json'
         ).then().catch(err => {
             expect(err).toStrictEqual(`Error: ${Messages.ERROR_READING_README}`);
         });
