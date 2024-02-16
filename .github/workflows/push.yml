@@ -1,5 +1,5 @@
-name: Test
-run-name: ${{ github.actor }} is testing GitHub Actions
+name: On Push
+run-name: Perform Tests
 on: [push]
 jobs:
   test:
