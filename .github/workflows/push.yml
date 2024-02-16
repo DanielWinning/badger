@@ -5,10 +5,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - name: Setup Environment
+        uses: actions/setup-node@v3
         with:
           node-version: '14.16.0'
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Project Dependencies
+        run: npm install
+      - name: Build Project
+        id: build
+        run: npm run build
+      - name: Test Project
+        if: steps.build.outcome == 'success'
+        run: npm run test
+      - if: steps.build.outcome == 'success'
+        run: git add .
+      - if: steps.build.outcome == 'success'
+        run: git commit -m "Build and Test Successful"
+      - if: steps.build.outcome == 'success'
+        run: git push
