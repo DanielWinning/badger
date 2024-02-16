@@ -4,7 +4,7 @@
 <!-- Version Badge -->
 <img src="https://img.shields.io/badge/Version-0.4.2-blue" alt="Version 0.4.2">
 <!-- JS Coverage Badge -->
-<img src="https://img.shields.io/badge/JS Coverage-79.40%25-orange" alt="JS Coverage 79.40%">
+<img src="https://img.shields.io/badge/JS Coverage-33.34%25-red" alt="JS Coverage 33.34%">
 <!-- License Badge -->
 <img src="https://img.shields.io/badge/License-GPL--3.0--only-34ad9b" alt="License GPL--3.0--only">
 </div>
