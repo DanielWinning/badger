@@ -20,11 +20,11 @@ jobs:
         id: test
         if: steps.build.outcome == 'success'
         run: npm run test
-      - id: git-add
+      - name: Push Coverage Changes
         if: steps.test.outcome == 'success'
-        run: git add .
-      - id: git-commit
-        if: steps.git-add.outcome == 'success'
-        run: git commit -m "Build and Test Successful"
-      - if: steps.git-commit.outcome == 'success'
-        run: git push
+        run: |
+          git config --global user.email "DanielWinning@users.noreply.github.com"
+          git config --global user.name "Daniel Winning"
+          git add .
+          git commit -m "Build and Test Successful"
+          git push
