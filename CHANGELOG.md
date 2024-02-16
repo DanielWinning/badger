@@ -1,6 +1,6 @@
 # Badger Changelog
 
-## [Unreleased]
+## [v0.4.3]
 ### Added
 - Changelog
 - Git workflows
