@@ -17,11 +17,14 @@ jobs:
         id: build
         run: npm run build
       - name: Test Project
+        id: test
         if: steps.build.outcome == 'success'
         run: npm run test
-      - if: steps.build.outcome == 'success'
+      - id: git-add
+        if: steps.test.outcome == 'success'
         run: git add .
-      - if: steps.build.outcome == 'success'
+      - id: git-commit
+        if: steps.git-add.outcome == 'success'
         run: git commit -m "Build and Test Successful"
-      - if: steps.build.outcome == 'success'
+      - if: steps.git-commit.outcome == 'success'
         run: git push
