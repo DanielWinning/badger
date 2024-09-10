@@ -4,7 +4,7 @@
 <!-- Version Badge -->
 <img src="https://img.shields.io/badge/Version-0.4.2-blue" alt="Version 0.4.2">
 <!-- JS Coverage Badge -->
-<img src="https://img.shields.io/badge/JS Coverage-79.40%25-orange" alt="JS Coverage 79.40%">
+<img src="https://img.shields.io/badge/JS Coverage-90.17%25-green" alt="JS Coverage 90.17%">
 <!-- License Badge -->
 <img src="https://img.shields.io/badge/License-GPL--3.0--only-34ad9b" alt="License GPL--3.0--only">
 </div>
@@ -62,6 +62,7 @@ npx badger --license ./path/to/json
 
 ```html
 <!-- PHP Coverage Badge -->
+<img src="https://img.shields.io/badge/PHP Coverage-7.04%25-red" alt="PHP Coverage 7.04%">
 ```
 
 ```shell
