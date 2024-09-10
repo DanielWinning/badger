@@ -3,6 +3,7 @@ import * as xml2js from 'xml2js';
 import { BadgeGenerator } from '../BadgeGenerator';
 import { CommandOption } from '../CommandOption';
 import { Messages } from '../Enum/Messages';
+import {parse} from 'ts-jest';
 
 class PHPCoverageBadgeGenerator extends BadgeGenerator
 {
@@ -16,6 +17,7 @@ class PHPCoverageBadgeGenerator extends BadgeGenerator
             await this.setupData(this.getName(), commandOption, true, arg)
                 .then(async () => {
                     const coverage = this.getCoverage(arg);
+                    console.log(coverage);
                     const status = this.getStatusFromPercentageString(coverage);
                     const badge: string = this.generateHTMLBadge(coverage, status);
 
@@ -50,21 +52,47 @@ class PHPCoverageBadgeGenerator extends BadgeGenerator
             }
 
             const coverageData = result.coverage.project[0];
+            let totalElements = 0,
+                coveredElements = 0;
 
-            let totalMethodsAndStatements = 0,
-                coveredMethodsAndStatements = 0;
+            const processFile = (file: any) => {
+                let fileMetrics = null;
 
-            coverageData.file.forEach((file: any) => {
-                if (file.class === undefined) {
-                    return;
+                if (file.class && file.class[0]) {
+                    fileMetrics = file.class[0].metrics[0].$;
+                } else if (file.metrics && file.metrics[0]) {
+                    fileMetrics = file.metrics[0].$;
                 }
-                const fileMetrics = file.class[0].metrics[0].$;
 
-                totalMethodsAndStatements += parseInt(fileMetrics.methods) + parseInt(fileMetrics.statements);
-                coveredMethodsAndStatements += parseInt(fileMetrics.coveredmethods) + parseInt(fileMetrics.coveredstatements);
-            });
+                if (fileMetrics) {
+                    totalElements += parseInt(fileMetrics.methods)
+                        + parseInt(fileMetrics.statements)
+                        + parseInt(fileMetrics.conditionals)
+                        + parseInt(fileMetrics.elements);
+                    coveredElements += parseInt(fileMetrics.coveredmethods)
+                        + parseInt(fileMetrics.coveredstatements)
+                        + parseInt(fileMetrics.coveredconditionals)
+                        + parseInt(fileMetrics.coveredelements);
+                }
+            };
 
-            coveragePercentage = (coveredMethodsAndStatements / totalMethodsAndStatements) * 100;
+            if (coverageData.file) {
+                coverageData.file.forEach(processFile);
+            }
+
+            if (coverageData.package) {
+                coverageData.package.forEach((pkg: any) => {
+                    if (pkg.file) {
+                        pkg.file.forEach(processFile);
+                    }
+                });
+            }
+
+            if (totalElements > 0) {
+                coveragePercentage = (coveredElements / totalElements) * 100;
+            } else {
+                coveragePercentage = 0;
+            }
         });
 
         return coveragePercentage.toFixed(2);
