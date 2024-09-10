@@ -44,6 +44,8 @@ class PHPCoverageBadgeGenerator extends BadgeGenerator
         const xml = fs.readFileSync(pathToXML, 'utf8');
         let coveragePercentage = 0;
 
+        console.log('Coverage percentage:', coveragePercentage);
+
         xml2js.parseString(xml, (err, result) => {
             if (err) {
                 throw new Error();
